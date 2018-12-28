@@ -1,0 +1,3 @@
+https://github.com/cwilso/PitchDetect/blob/master/js/pitchdetect.js
+https://air.ghost.io/recording-to-an-audio-file-using-html5-and-js/
+https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createMediaStreamSource
