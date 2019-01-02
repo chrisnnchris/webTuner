@@ -1,3 +1,8 @@
 https://github.com/cwilso/PitchDetect/blob/master/js/pitchdetect.js
 https://air.ghost.io/recording-to-an-audio-file-using-html5-and-js/
 https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createMediaStreamSource
+https://developer.microsoft.com/en-us/microsoft-edge/testdrive/demos/webaudiotuner/
+https://github.com/MicrosoftEdge/Demos/tree/master/webaudiotuner
+https://modernweb.com/creating-sound-with-the-web-audio-api-and-oscillators/
+https://code.tutsplus.com/tutorials/how-to-create-an-audio-oscillator-with-web-audio-api--cms-29943
+https://jsfiddle.net/remotesynth/73cD5/?utm_source=website&utm_medium=embed&utm_campaign=73cD5
