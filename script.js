@@ -15,9 +15,13 @@ g.connect(ctx.destination);
 $("#tunerToggle").click(function() {
 	//o.resume();
 	console.log("Tuner was toggled");
+	ctx.resume();
 	o.type = "sine";
 	o.frequency.value = 392.00;
 	g.gain.value = 1;
+	console.log("state of audio context");
+	console.log(ctx.state);
+	
 });	
 
 /*	
