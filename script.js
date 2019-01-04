@@ -1,5 +1,23 @@
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
+// Test if notes can be sent if put below tunerToggle
+var notes = [
+	["C0", 16.35],
+	["C#0", 17.23],
+	["D0", 18.35],
+	["D#0", 19.45],
+	["E0", 20.60],
+	["F0", 21.83],
+	["F#0", 23.12],
+	["G0", 24.50],
+	["G#0", 25.96],
+	["A0", 27.50],
+	["A#0", 29.14],
+	["B0", 30.87],
+	
+]
+	
+
 var ctx = new AudioContext();
 
 var o = ctx.createOscillator();
