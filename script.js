@@ -1,6 +1,8 @@
-
+var noteIndex = 45;
+var playing = false;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 // Test if notes can be sent if put below tunerToggle
+
 var notes = [
 	["C0", 16.35],
 	["C#0", 17.23],
@@ -116,10 +118,19 @@ g.connect(ctx.destination);
 $("#tunerToggle").click(function() {
 	//o.resume();
 	console.log("Tuner was toggled");
-	ctx.resume();
-	o.type = "sine";
-	o.frequency.value = 392.00;
-	g.gain.value = 1;
+	console.log("This was noteIndex: " + noteIndex);
+	console.log("This was note: " + notes[noteIndex][0]);
+	console.log("This was note frequency: " + notes[noteIndex][1]);
+	if (playing == false) {
+		playing = true;
+		ctx.resume();
+		o.type = "sine";
+		o.frequency.value = notes[noteIndex][1];
+		g.gain.value = 1;		
+	} else {
+		playing = false;
+		ctx.suspend();
+	}
 	console.log("state of audio context");
 	console.log(ctx.state);
 	
