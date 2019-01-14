@@ -136,6 +136,30 @@ $("#tunerToggle").click(function() {
 	
 });	
 
+$("#lowerToggle").click(function() {
+	noteIndex--;
+	console.log("This is noteIndex: " + noteIndex);
+	if (playing == true) {
+
+		o.type = "sine";
+		o.frequency.value = notes[noteIndex][1];
+		g.gain.value = 1;		
+		ctx.resume();		
+	}	
+});	
+
+$("#raiseToggle").click(function() {
+	noteIndex++;
+	console.log("This is noteIndex: " + noteIndex);
+	if (playing == true) {
+		o.type = "sine";
+		o.frequency.value = notes[noteIndex][1];
+		g.gain.value = 1;		
+		ctx.resume();		
+	}
+});	
+
+
 /*	
 // First checking if webaudio supported, set to audiocontext if valid
 var audiocontext;
