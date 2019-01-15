@@ -121,15 +121,18 @@ $("#tunerToggle").click(function() {
 	console.log("This was noteIndex: " + noteIndex);
 	console.log("This was note: " + notes[noteIndex][0]);
 	console.log("This was note frequency: " + notes[noteIndex][1]);
+	
 	if (playing == false) {
 		playing = true;
 		ctx.resume();
 		o.type = "sine";
 		o.frequency.value = notes[noteIndex][1];
-		g.gain.value = 1;		
+		g.gain.value = 1;
+		$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
 	} else {
 		playing = false;
 		ctx.suspend();
+		$("#referenceNoteDisplay").text("Note turned off");	
 	}
 	console.log("state of audio context");
 	console.log(ctx.state);
@@ -145,6 +148,8 @@ $("#lowerToggle").click(function() {
 		o.frequency.value = notes[noteIndex][1];
 		g.gain.value = 1;		
 		ctx.resume();		
+		$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
+
 	}	
 });	
 
@@ -156,6 +161,7 @@ $("#raiseToggle").click(function() {
 		o.frequency.value = notes[noteIndex][1];
 		g.gain.value = 1;		
 		ctx.resume();		
+		$("#referenceNoteDisplay").text(notes[noteIndex][0]);			
 	}
 });	
 
