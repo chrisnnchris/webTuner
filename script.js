@@ -1,4 +1,5 @@
 var noteIndex = 45;
+var earTrainingIndex = Math.floor((Math.random() * 95));
 var playing = false;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 // Test if notes can be sent if put below tunerToggle
@@ -102,7 +103,7 @@ var notes = [
 	["C8", 4186.01]
 ]
 	
-
+console.log("Notes length: " +notes.length);
 var ctx = new AudioContext();
 
 var o = ctx.createOscillator();
@@ -140,29 +141,47 @@ $("#tunerToggle").click(function() {
 });	
 
 $("#lowerToggle").click(function() {
-	noteIndex--;
-	console.log("This is noteIndex: " + noteIndex);
-	if (playing == true) {
-
-		o.type = "sine";
-		o.frequency.value = notes[noteIndex][1];
-		g.gain.value = 1;		
-		ctx.resume();		
-		$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
-
-	}	
+	if (noteIndex != 0) {
+		noteIndex--;
+		console.log("This is noteIndex: " + noteIndex);
+		if (playing == true) {
+			o.type = "sine";
+			o.frequency.value = notes[noteIndex][1];
+			g.gain.value = 1;		
+			ctx.resume();		
+			$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
+		}	
+	} else {
+		console.log("Cannot lower anymore");
+	}
 });	
 
 $("#raiseToggle").click(function() {
-	noteIndex++;
-	console.log("This is noteIndex: " + noteIndex);
+	if (noteIndex != 95) {
+		noteIndex++;
+		console.log("This is noteIndex: " + noteIndex);
+		if (playing == true) {
+			o.type = "sine";
+			o.frequency.value = notes[noteIndex][1];
+			g.gain.value = 1;		
+			ctx.resume();		
+			$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
+		}	
+	} else {
+		console.log("Cannot increase anymore");
+	}	
+});	
+
+$("#earTrainingOn").click(function() {
+	noteIndex = Math.floor((Math.random() * 95));	
+	console.log("New generated noteIndex: " + noteIndex);
 	if (playing == true) {
 		o.type = "sine";
 		o.frequency.value = notes[noteIndex][1];
 		g.gain.value = 1;		
 		ctx.resume();		
-		$("#referenceNoteDisplay").text(notes[noteIndex][0]);			
-	}
+	}		
+	$("#referenceNoteDisplay").text("What is the note?");	
 });	
 
 
