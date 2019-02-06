@@ -1,6 +1,7 @@
 var noteIndex = 45;
 var earTrainingIndex = Math.floor((Math.random() * 95));
 var playing = false;
+var earTrainingHumanRange = false;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 // Test if notes can be sent if put below tunerToggle
 
@@ -173,7 +174,11 @@ $("#raiseToggle").click(function() {
 });	
 
 $("#earTrainingOn").click(function() {
-	noteIndex = Math.floor((Math.random() * 95));	
+	if (earTrainingHumanRange == true) {
+		noteIndex = Math.floor((Math.random() * 95));	
+	} else {
+		noteIndex = Math.floor((Math.random() * 95));		
+	}
 	console.log("New generated noteIndex: " + noteIndex);
 	if (playing == true) {
 		o.type = "sine";
@@ -184,7 +189,21 @@ $("#earTrainingOn").click(function() {
 	$("#referenceNoteDisplay").text("What is the note?");	
 });	
 
+$("#HumanRangeBoolButton").click(function() {
+	if (earTrainingHumanRange == true) {
+		earTrainingHumanRange = false;
+		$("#HumanRangeBoolButton").html('Turn human range on');
+	} else {
+		earTrainingHumanRange = true;	
+		$("#HumanRangeBoolButton").html('Turn human range off');
+	}	
+});	
 
+//humanRangeAnswerSelect
+$( "#humanRangeAnswerSelect" ).change(function() {
+  alert( "Handler for .change() called." );
+
+});
 /*	
 // First checking if webaudio supported, set to audiocontext if valid
 var audiocontext;
