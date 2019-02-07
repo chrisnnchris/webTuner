@@ -186,7 +186,8 @@ $("#earTrainingOn").click(function() {
 		g.gain.value = 1;		
 		ctx.resume();		
 	}		
-	$("#referenceNoteDisplay").text("What is the note?");	
+	$("#referenceNoteDisplay").text("What is the note?");
+	console.log("This was note: " + notes[noteIndex][0]);	
 });	
 
 $("#HumanRangeBoolButton").click(function() {
@@ -201,8 +202,15 @@ $("#HumanRangeBoolButton").click(function() {
 
 //humanRangeAnswerSelect
 $( "#humanRangeAnswerSelect" ).change(function() {
-  alert( "Handler for .change() called." );
-
+	//alert( "Handler for .change() called." );
+	//console.log($("#humanRangeAnswerSelect").val());
+	if ($("#humanRangeAnswerSelect").val() == notes[noteIndex][0]) {
+		console.log("Right guess");
+	}	else {
+		console.log("Wrong guess");
+	}	
+	//if ($("#humanRangeAnswerSelect")
+	$("#humanRangeAnswerSelect").val("");
 });
 /*	
 // First checking if webaudio supported, set to audiocontext if valid
