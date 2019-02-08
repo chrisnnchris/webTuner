@@ -21,13 +21,13 @@ var notes = [
 	["C1", 32.70],
 	["C#1", 34.65],
 	["D1", 36.71],
-	["D#1", 38.89],	
+	["D#1", 38.89],
 	["E1", 41.20],
 	["F1", 43.65],
 	["F#1", 46.25],
 	["G1", 49.00],
-	["G#1", 51.91],	
-	["A1", 55.00],	
+	["G#1", 51.91],
+	["A1", 55.00],
 	["A#1", 58.27],
 	["B1", 61.74],
 	["C2", 65.41],
@@ -103,7 +103,7 @@ var notes = [
 	["B7", 3951.07],
 	["C8", 4186.01]
 ]
-	
+
 console.log("Notes length: " +notes.length);
 var ctx = new AudioContext();
 
@@ -123,23 +123,23 @@ $("#tunerToggle").click(function() {
 	console.log("This was noteIndex: " + noteIndex);
 	console.log("This was note: " + notes[noteIndex][0]);
 	console.log("This was note frequency: " + notes[noteIndex][1]);
-	
+
 	if (playing == false) {
 		playing = true;
 		ctx.resume();
 		o.type = "sine";
 		o.frequency.value = notes[noteIndex][1];
 		g.gain.value = 1;
-		$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
+		$("#referenceNoteDisplay").text(notes[noteIndex][0]);
 	} else {
 		playing = false;
 		ctx.suspend();
-		$("#referenceNoteDisplay").text("Note turned off");	
+		$("#referenceNoteDisplay").text("Note turned off");
 	}
 	console.log("state of audio context");
 	console.log(ctx.state);
-	
-});	
+
+});
 
 $("#lowerToggle").click(function() {
 	if (noteIndex != 0) {
@@ -148,14 +148,14 @@ $("#lowerToggle").click(function() {
 		if (playing == true) {
 			o.type = "sine";
 			o.frequency.value = notes[noteIndex][1];
-			g.gain.value = 1;		
-			ctx.resume();		
-			$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
-		}	
+			g.gain.value = 1;
+			ctx.resume();
+			$("#referenceNoteDisplay").text(notes[noteIndex][0]);
+		}
 	} else {
 		console.log("Cannot lower anymore");
 	}
-});	
+});
 
 $("#raiseToggle").click(function() {
 	if (noteIndex != 95) {
@@ -164,55 +164,61 @@ $("#raiseToggle").click(function() {
 		if (playing == true) {
 			o.type = "sine";
 			o.frequency.value = notes[noteIndex][1];
-			g.gain.value = 1;		
-			ctx.resume();		
-			$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
-		}	
+			g.gain.value = 1;
+			ctx.resume();
+			$("#referenceNoteDisplay").text(notes[noteIndex][0]);
+		}
 	} else {
 		console.log("Cannot increase anymore");
-	}	
-});	
+	}
+});
 
 $("#earTrainingOn").click(function() {
 	if (earTrainingHumanRange == true) {
-		noteIndex = Math.floor((Math.random() * 95));	
+		noteIndex = Math.floor((Math.random() * 95));
 	} else {
-		noteIndex = Math.floor((Math.random() * 95));		
+		noteIndex = Math.floor((Math.random() * 95));
 	}
 	console.log("New generated noteIndex: " + noteIndex);
 	if (playing == true) {
 		o.type = "sine";
 		o.frequency.value = notes[noteIndex][1];
-		g.gain.value = 1;		
-		ctx.resume();		
-	}		
+		g.gain.value = 1;
+		ctx.resume();
+	}
 	$("#referenceNoteDisplay").text("What is the note?");
-	console.log("This was note: " + notes[noteIndex][0]);	
-});	
+	console.log("This was note: " + notes[noteIndex][0]);
+});
 
 $("#HumanRangeBoolButton").click(function() {
 	if (earTrainingHumanRange == true) {
 		earTrainingHumanRange = false;
 		$("#HumanRangeBoolButton").html('Turn human range on');
 	} else {
-		earTrainingHumanRange = true;	
+		earTrainingHumanRange = true;
 		$("#HumanRangeBoolButton").html('Turn human range off');
-	}	
-});	
+	}
+});
 
 //humanRangeAnswerSelect
 $( "#humanRangeAnswerSelect" ).change(function() {
 	//alert( "Handler for .change() called." );
-	//console.log($("#humanRangeAnswerSelect").val());
-	if ($("#humanRangeAnswerSelect").val() == notes[noteIndex][0]) {
+	console.log( "This is inputReturn: " + $("#humanRangeAnswerSelect").val());
+	//$("#humanRangeAnswerSelect").val() == notes[noteIndex][0]
+	if ($("#humanRangeAnswerSelect").val() == noteIndex) {
 		console.log("Right guess");
 	}	else {
 		console.log("Wrong guess");
-	}	
+		var userNoteIndex = 0;
+		var higher = false;
+		while (userNoteIndex != noteIndex) {
+			userNoteIndex++
+		}
+	}
 	//if ($("#humanRangeAnswerSelect")
 	$("#humanRangeAnswerSelect").val("");
 });
-/*	
+/*
 // First checking if webaudio supported, set to audiocontext if valid
 var audiocontext;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -221,7 +227,7 @@ if (window.AudioContext) {
 
 } else {
 	console.log("web audio not supported");
-}	
+}
 audiocontext = new AudioContext();
 var o = audiocontext.createOscillator();
 o.type = "sine";
@@ -231,13 +237,13 @@ var g = audiocontext.createGain();
 g.gain.value = 0;
 
 o.connect(g);
-g.connect(audiocontext.destination);	
-	
+g.connect(audiocontext.destination);
+
 $( "#tunerToggle" ).click(function() {
 	o.resume();
 	console.log("Tuner was toggled");
 
-});	
+});
 	//o.start(0);
 	//o.connect(audiocontext.destination);
 */
