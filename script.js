@@ -2,6 +2,7 @@ var noteIndex = 45;
 var earTrainingIndex = Math.floor((Math.random() * 95));
 var playing = false;
 var earTrainingHumanRange = false;
+var middleDeviation = 0;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 // Test if notes can be sent if put below tunerToggle
 // note name, note frequency, , learningNotch
@@ -200,7 +201,24 @@ $("#HumanRangeBoolButton").click(function() {
 	}	
 });	
 
-//humanRangeAnswerSelect
+$("#middleDeviationDown").click(function() {
+	console.log("middleDeviationDown Clicked");
+	//middleDeviation--;
+	console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
+
+});	
+
+$("#middleDeviationUp").click(function() {
+	console.log("middleDeviationUp Clicked");
+	console.log("Testing random number generation at octaves");
+	console.log("middleDeviation: " + middleDeviation);
+	middleDeviation++;
+	console.log("This was center note: " + notes[47][0]);			
+	
+	console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
+
+});	
+
 $( "#humanRangeAnswerSelect" ).change(function() {
 	//alert( "Handler for .change() called." );
 	//console.log($("#humanRangeAnswerSelect").val());
@@ -212,7 +230,6 @@ $( "#humanRangeAnswerSelect" ).change(function() {
 	}	else {
 		console.log("Wrong guess");
 	}	
-	//if ($("#humanRangeAnswerSelect")
 	$("#humanRangeAnswerSelect").val("");
 });
 /*	
