@@ -160,7 +160,7 @@ $("#lowerToggle").click(function() {
 });	
 
 $("#raiseToggle").click(function() {
-	if (noteIndex != 95) {
+	if (noteIndex != 96) {
 		noteIndex++;
 		console.log("This is noteIndex: " + noteIndex);
 		if (playing == true) {
@@ -204,14 +204,16 @@ $("#HumanRangeBoolButton").click(function() {
 
 $("#middleDeviationDown").click(function() {
 	console.log("middleDeviationDown Clicked");
-	//middleDeviation--;
+	middleDeviation++;
+	console.log("This is middleDeviation: " + middleDeviation);
 	//console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
-	// first octave. C4:47 - B4:
-	// second octave. C3:35 - B5:
-	// third octave. C2:24 - B7:
-	// third octave. C1:12 - B8:
+	// first octave. C4:48 - B4:59
+	// second octave. C3:36 - B5:71
+	// third octave. C2:24 - B6:83
+	// third octave. C1:12 - B7: 75
 	// C0: 0
-	var bottomNumber = 4 * (12 * middleDeviation) - 1
+	// desired output. 0 - 48. 1 - 36
+	var bottomNumber = 48 - 12 * middleDeviation;
 	console.log("bottomNumber: " + bottomNumber);
 });	
 
