@@ -41,7 +41,8 @@ var notes = [
 	["G2", 98.00, 1, 0],
 	["G#2", 103.83, 1, 0],
 	["A2", 110.00, 1, 0],
-	["B2", 116.54, 1, 0],
+	["A#2", 116.54, 1, 0],
+	["B2", 123.47, 1, 0],	
 	["C3", 130.81, 1, 0],
 	["C#3", 138.59, 1, 0],
 	["D3", 146.83, 1, 0],
@@ -204,18 +205,23 @@ $("#HumanRangeBoolButton").click(function() {
 $("#middleDeviationDown").click(function() {
 	console.log("middleDeviationDown Clicked");
 	//middleDeviation--;
-	console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
-
+	//console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
+	// first octave. C4:47 - B4:
+	// second octave. C3:35 - B5:
+	// third octave. C2:24 - B7:
+	// third octave. C1:12 - B8:
+	// C0: 0
+	var bottomNumber = 4 * (12 * middleDeviation) - 1
+	console.log("bottomNumber: " + bottomNumber);
 });	
 
 $("#middleDeviationUp").click(function() {
 	console.log("middleDeviationUp Clicked");
-	console.log("Testing random number generation at octaves");
-	console.log("middleDeviation: " + middleDeviation);
-	middleDeviation++;
+	//console.log("middleDeviation: " + middleDeviation);
+	//middleDeviation++;
 	console.log("This was center note: " + notes[47][0]);			
-	
-	console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
+	console.log("This was end of centerNote: " + notes[58][0]);
+	//console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
 
 });	
 
