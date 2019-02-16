@@ -6,7 +6,8 @@ var middleDeviation = 0;
 var bottomNoteIndex = 0;
 var topNoteIndex = 0;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-var slider = document.getElementById("myRange");
+var bottomNoteSlider = document.getElementById("bottomNoteIndex");
+var topNoteSlider = document.getElementById("topNoteIndex");
 // Test if notes can be sent if put below tunerToggle
 // note name, note frequency, , learningNotch
 var notes = [
@@ -259,6 +260,12 @@ $( "#humanRangeAnswerSelect" ).change(function() {
 	$("#humanRangeAnswerSelect").val("");
 });
 
-slider.oninput = function() {
-  console.log(this.value);
+bottomNoteSlider.oninput = function() {
+	console.log(this.value);
+	document.getElementById("topNoteIndex").min = this.value;
 }
+
+topNoteSlider.oninput = function() {
+	console.log(this.value);
+	document.getElementById("bottomNoteIndex").max = this.value;
+}	
