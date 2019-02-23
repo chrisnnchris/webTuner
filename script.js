@@ -262,10 +262,16 @@ $( "#humanRangeAnswerSelect" ).change(function() {
 
 bottomNoteSlider.oninput = function() {
 	console.log(this.value);
-	document.getElementById("topNoteIndex").min = this.value;
+	if (this.value >= document.getElementById("topNoteIndex").value) {
+		document.getElementById("topNoteIndex").value = this.value;
+	}	
+	//document.getElementById("topNoteIndex").min = this.value;
 }
 
 topNoteSlider.oninput = function() {
 	console.log(this.value);
-	document.getElementById("bottomNoteIndex").max = this.value;
+	if (this.value <= document.getElementById("bottomNoteIndex").value) {
+		document.getElementById("bottomNoteIndex").value = this.value;
+	}		
+	//document.getElementById("bottomNoteIndex").max = this.value;
 }	
