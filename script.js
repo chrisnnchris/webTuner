@@ -261,15 +261,17 @@ $( "#humanRangeAnswerSelect" ).change(function() {
 });
 
 bottomNoteSlider.oninput = function() {
-	console.log(this.value);
+	console.log("bottomNoteVal " + this.value);
 	if (this.value >= document.getElementById("topNoteIndex").value) {
+		console.log("reset triggered");
 		document.getElementById("topNoteIndex").value = this.value;
 	}	
+	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[this.value][0] + " - " + notes[document.getElementById("topNoteIndex").value][0];
 	//document.getElementById("topNoteIndex").min = this.value;
 }
 
 topNoteSlider.oninput = function() {
-	console.log(this.value);
+	console.log("topNoteVal " + this.value);
 	if (this.value <= document.getElementById("bottomNoteIndex").value) {
 		document.getElementById("bottomNoteIndex").value = this.value;
 	}		
