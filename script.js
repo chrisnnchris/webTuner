@@ -261,19 +261,31 @@ $( "#humanRangeAnswerSelect" ).change(function() {
 });
 
 bottomNoteSlider.oninput = function() {
-	console.log("bottomNoteVal " + this.value);
-	if (this.value >= document.getElementById("topNoteIndex").value) {
-		console.log("reset triggered");
+	var bottomNoteVal = parseInt(this.value);
+	var topNoteVal = parseInt(document.getElementById("topNoteIndex").value);
+	console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
+	//console.log(typeof bottomNoteVal);
+	if (bottomNoteVal > topNoteVal) {
+		console.log("bottom to top reset triggered");
+		console.log("Before reset notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
+		console.log(bottomNoteVal > topNoteVal);
 		document.getElementById("topNoteIndex").value = this.value;
 	}	
-	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[this.value][0] + " - " + notes[document.getElementById("topNoteIndex").value][0];
+	
+	console.log("Final notevals. bottomNoteVal: " + this.value + ". topNoteVal: " + document.getElementById("topNoteIndex").value);
+	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[bottomNoteVal][0] + " - " + notes[topNoteVal][0];
 	//document.getElementById("topNoteIndex").min = this.value;
 }
 
 topNoteSlider.oninput = function() {
-	console.log("topNoteVal " + this.value);
-	if (this.value <= document.getElementById("bottomNoteIndex").value) {
+	var bottomNoteVal = parseInt(document.getElementById("bottomNoteIndex").value);
+	var topNoteVal = parseInt(this.value);	
+	console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
+	if (topNoteVal < bottomNoteVal) {
+		console.log("top to bottom reset triggered");
 		document.getElementById("bottomNoteIndex").value = this.value;
-	}		
+	}	
+	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[document.getElementById("bottomNoteIndex").value][0] + " - " + notes[this.value][0];
+	console.log("Final notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);	
 	//document.getElementById("bottomNoteIndex").max = this.value;
 }	
