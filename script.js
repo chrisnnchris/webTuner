@@ -1,9 +1,6 @@
 var noteIndex = 45;
 var earTrainingIndex = Math.floor((Math.random() * 95));
 var playing = false;
-var earTrainingHumanRange = false;
-var middleDeviation = 0;
-var bottomNoteIndex = 0;
 var topNoteIndex = 0;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var bottomNoteSlider = document.getElementById("bottomNoteIndex");
@@ -26,13 +23,13 @@ var notes = [
 	["C1", 32.70, 1, 0],
 	["C#1", 34.65, 1, 0],
 	["D1", 36.71, 1, 0],
-	["D#1", 38.89, 1, 0],	
+	["D#1", 38.89, 1, 0],
 	["E1", 41.20, 1, 0],
 	["F1", 43.65, 1, 0],
 	["F#1", 46.25, 1, 0],
 	["G1", 49.00, 1, 0],
-	["G#1", 51.91, 1, 0],	
-	["A1", 55.00, 1, 0],	
+	["G#1", 51.91, 1, 0],
+	["A1", 55.00, 1, 0],
 	["A#1", 58.27, 1, 0],
 	["B1", 61.74, 1, 0],
 	["C2", 65.41, 1, 0],
@@ -46,7 +43,7 @@ var notes = [
 	["G#2", 103.83, 1, 0],
 	["A2", 110.00, 1, 0],
 	["A#2", 116.54, 1, 0],
-	["B2", 123.47, 1, 0],	
+	["B2", 123.47, 1, 0],
 	["C3", 130.81, 1, 0],
 	["C#3", 138.59, 1, 0],
 	["D3", 146.83, 1, 0],
@@ -109,7 +106,7 @@ var notes = [
 	["B7", 3951.07, 1, 0],
 	["C8", 4186.01, 1, 0]
 ]
-	
+
 console.log("Notes length: " +notes.length);
 var ctx = new AudioContext();
 
@@ -129,23 +126,23 @@ $("#tunerToggle").click(function() {
 	console.log("This was noteIndex: " + noteIndex);
 	console.log("This was note: " + notes[noteIndex][0]);
 	console.log("This was note frequency: " + notes[noteIndex][1]);
-	
+
 	if (playing == false) {
 		playing = true;
 		ctx.resume();
 		o.type = "sine";
 		o.frequency.value = notes[noteIndex][1];
 		g.gain.value = 1;
-		$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
+		$("#referenceNoteDisplay").text(notes[noteIndex][0]);
 	} else {
 		playing = false;
 		ctx.suspend();
-		$("#referenceNoteDisplay").text("Note turned off");	
+		$("#referenceNoteDisplay").text("Note turned off");
 	}
 	console.log("state of audio context");
 	console.log(ctx.state);
-	
-});	
+
+});
 
 $("#lowerToggle").click(function() {
 	if (noteIndex != 0) {
@@ -154,14 +151,14 @@ $("#lowerToggle").click(function() {
 		if (playing == true) {
 			o.type = "sine";
 			o.frequency.value = notes[noteIndex][1];
-			g.gain.value = 1;		
-			ctx.resume();		
-			$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
-		}	
+			g.gain.value = 1;
+			ctx.resume();
+			$("#referenceNoteDisplay").text(notes[noteIndex][0]);
+		}
 	} else {
 		console.log("Cannot lower anymore");
 	}
-});	
+});
 
 $("#raiseToggle").click(function() {
 	if (noteIndex != 96) {
@@ -170,93 +167,54 @@ $("#raiseToggle").click(function() {
 		if (playing == true) {
 			o.type = "sine";
 			o.frequency.value = notes[noteIndex][1];
-			g.gain.value = 1;		
-			ctx.resume();		
-			$("#referenceNoteDisplay").text(notes[noteIndex][0]);	
-		}	
+			g.gain.value = 1;
+			ctx.resume();
+			$("#referenceNoteDisplay").text(notes[noteIndex][0]);
+		}
 	} else {
 		console.log("Cannot increase anymore");
-	}	
-});	
+	}
+});
 
 $("#earTrainingOn").click(function() {
-	if (earTrainingHumanRange == true) {
-		noteIndex = Math.floor((Math.random() * 95));	
-	} else {
-		noteIndex = Math.floor((Math.random() * 95));		
-	}
+
 	console.log("New generated noteIndex: " + noteIndex);
 	if (playing == true) {
 		o.type = "sine";
 		o.frequency.value = notes[noteIndex][1];
-		g.gain.value = 1;		
-		ctx.resume();		
-	}		
+		g.gain.value = 1;
+		ctx.resume();
+	}
 	$("#referenceNoteDisplay").text("What is the note?");
-	console.log("This was note: " + notes[noteIndex][0]);	
-});	
+	console.log("This was note: " + notes[noteIndex][0]);
+});
 
 $("#HumanRangeBoolButton").click(function() {
 	if (earTrainingHumanRange == true) {
 		earTrainingHumanRange = false;
 		$("#HumanRangeBoolButton").html('Turn human range on');
 	} else {
-		earTrainingHumanRange = true;	
+		earTrainingHumanRange = true;
 		$("#HumanRangeBoolButton").html('Turn human range off');
-	}	
-});	
-
-$("#middleDeviationDown").click(function() {
-	console.log("middleDeviationDown Clicked");
-	if (middleDeviation > 0) {
-		middleDeviation--;
-	} else {
-		console.log("Cannot decrease middleDeviation");
 	}
-	console.log("This is middleDeviation: " + middleDeviation);
-	//console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
-	// first octave. C4:48 - B4:59
-	// second octave. C3:36 - B5:71
-	// third octave. C2:24 - B6:83
-	// third octave. C1:12 - B7: 75
-	// C0: 0
-	// desired output. 0 - 48. 1 - 36
-	bottomNoteIndex = 48 - 12 * middleDeviation;
-	topNoteIndex = 48 + 12 * middleDeviation;
-	console.log("bottomNumber: " + bottomNumber);
-	console.log("topNumber: " + topNumber);
-});	
-
-$("#middleDeviationUp").click(function() {
-	console.log("middleDeviationUp Clicked");
-	//console.log("middleDeviation: " + middleDeviation);
-	//middleDeviation++;
-	//console.log("This was center note: " + notes[47][0]);			
-	//console.log(Math.floor((Math.random() *  (12 * middleDeviation) /* + 47 */)));
-	if (middleDeviation < 4) {
-		middleDeviation++;
-	} else {
-		console.log("Cannot increase middleDeviation");
-	}
-	console.log("This is middleDeviation: " + middleDeviation);
-	bottomNoteIndex = 48 - 12 * middleDeviation;
-	topNoteIndex = 48 + 12 * middleDeviation;
-	console.log("bottomNumber: " + bottomNumber);
-	console.log("topNumber: " + topNumber);
-
-});	
+});
 
 $( "#humanRangeAnswerSelect" ).change(function() {
 	//alert( "Handler for .change() called." );
-	//console.log($("#humanRangeAnswerSelect").val());
-	if ($("#humanRangeAnswerSelect").val() == notes[noteIndex][0]) {
+	console.log("Guess attempt");
+	var guessIndex = parseInt($("#humanRangeAnswerSelect").val());
+	console.log("This was the guessIndex: " + guessIndex);
+	console.log("This was the guessnote: " + notes[guessIndex][0]);
+	console.log("This was noteIndex: " + noteIndex);
+	console.log("This was the noteIndex note: " + notes[noteIndex][0]);
+	if (guessIndex == noteIndex) {
 		console.log("Right guess");
 		noteIndex = Math.floor((Math.random() * 95));
 		console.log("New generated noteIndex: " + noteIndex);
-		console.log("This was note: " + notes[noteIndex][0]);			
+		console.log("This was note: " + notes[noteIndex][0]);
 	}	else {
 		console.log("Wrong guess");
-	}	
+	}
 	$("#humanRangeAnswerSelect").val("");
 });
 
@@ -270,8 +228,8 @@ bottomNoteSlider.oninput = function() {
 		console.log("Before reset notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
 		console.log(bottomNoteVal > topNoteVal);
 		document.getElementById("topNoteIndex").value = this.value;
-	}	
-	
+	}
+
 	console.log("Final notevals. bottomNoteVal: " + this.value + ". topNoteVal: " + document.getElementById("topNoteIndex").value);
 	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[bottomNoteVal][0] + " - " + notes[topNoteVal][0];
 	//document.getElementById("topNoteIndex").min = this.value;
@@ -279,13 +237,13 @@ bottomNoteSlider.oninput = function() {
 
 topNoteSlider.oninput = function() {
 	var bottomNoteVal = parseInt(document.getElementById("bottomNoteIndex").value);
-	var topNoteVal = parseInt(this.value);	
+	var topNoteVal = parseInt(this.value);
 	console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
 	if (topNoteVal < bottomNoteVal) {
 		console.log("top to bottom reset triggered");
 		document.getElementById("bottomNoteIndex").value = this.value;
-	}	
+	}
 	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[document.getElementById("bottomNoteIndex").value][0] + " - " + notes[this.value][0];
-	console.log("Final notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);	
+	console.log("Final notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
 	//document.getElementById("bottomNoteIndex").max = this.value;
-}	
+}
