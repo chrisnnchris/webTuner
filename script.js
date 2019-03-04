@@ -1,10 +1,11 @@
 var noteIndex = 45;
 var earTrainingIndex = Math.floor((Math.random() * 95));
 var playing = false;
-var topNoteIndex = 0;
+var topNoteIndex = 45;
+var botNoteIndex = 45;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-var bottomNoteSlider = document.getElementById("bottomNoteIndex");
-var topNoteSlider = document.getElementById("topNoteIndex");
+var bottomNoteSlider = document.getElementById("bottomNoteIndexSlider");
+var topNoteSlider = document.getElementById("topNoteIndexSlider");
 // Test if notes can be sent if put below tunerToggle
 // note name, note frequency, , learningNotch
 var notes = [
@@ -177,8 +178,9 @@ $("#raiseToggle").click(function() {
 });
 
 $("#earTrainingOn").click(function() {
-
+	noteIndex = Math.floor(Math.random() * (topNoteIndex - botNoteIndex + 1)) + botNoteIndex;
 	console.log("New generated noteIndex: " + noteIndex);
+	
 	if (playing == true) {
 		o.type = "sine";
 		o.frequency.value = notes[noteIndex][1];
@@ -219,31 +221,29 @@ $( "#humanRangeAnswerSelect" ).change(function() {
 });
 
 bottomNoteSlider.oninput = function() {
-	var bottomNoteVal = parseInt(this.value);
-	var topNoteVal = parseInt(document.getElementById("topNoteIndex").value);
-	console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
+	botNoteIndex = parseInt(this.value);
+	topNoteIndex = parseInt(document.getElementById("topNoteIndexSlider").value);
+	//console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
 	//console.log(typeof bottomNoteVal);
-	if (bottomNoteVal > topNoteVal) {
-		console.log("bottom to top reset triggered");
-		console.log("Before reset notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
-		console.log(bottomNoteVal > topNoteVal);
-		document.getElementById("topNoteIndex").value = this.value;
+	if (botNoteIndex > topNoteIndex) {
+		//console.log("bottom to top reset triggered");
+		//console.log("Before reset notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
+		//console.log(bottomNoteVal > topNoteVal);
+		document.getElementById("topNoteIndexSlider").value = this.value;
 	}
 
-	console.log("Final notevals. bottomNoteVal: " + this.value + ". topNoteVal: " + document.getElementById("topNoteIndex").value);
-	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[bottomNoteVal][0] + " - " + notes[topNoteVal][0];
-	//document.getElementById("topNoteIndex").min = this.value;
+	console.log("Final notevals. bottomNoteVal: " + this.value + ". topNoteVal: " + document.getElementById("topNoteIndexSlider").value);
+	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[botNoteIndex][0] + " - " + notes[topNoteIndex][0];
 }
 
 topNoteSlider.oninput = function() {
-	var bottomNoteVal = parseInt(document.getElementById("bottomNoteIndex").value);
-	var topNoteVal = parseInt(this.value);
-	console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
-	if (topNoteVal < bottomNoteVal) {
-		console.log("top to bottom reset triggered");
-		document.getElementById("bottomNoteIndex").value = this.value;
+	botNoteIndex = parseInt(document.getElementById("bottomNoteIndexSlider").value);
+	topNoteIndex = parseInt(this.value);
+	//console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
+	if (topNoteIndex < botNoteIndex) {
+		//console.log("top to bottom reset triggered");
+		document.getElementById("bottomNoteIndexSlider").value = this.value;
 	}
-	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[document.getElementById("bottomNoteIndex").value][0] + " - " + notes[this.value][0];
-	console.log("Final notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
-	//document.getElementById("bottomNoteIndex").max = this.value;
+	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[botNoteIndex][0] + " - " + notes[topNoteIndex][0];
+	//console.log("Final notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
 }
