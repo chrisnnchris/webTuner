@@ -178,6 +178,7 @@ $("#raiseToggle").click(function() {
 });
 
 $("#earTrainingOn").click(function() {
+	
 	noteIndex = Math.floor(Math.random() * (topNoteIndex - botNoteIndex + 1)) + botNoteIndex;
 	console.log("New generated noteIndex: " + noteIndex);
 	
@@ -225,11 +226,12 @@ bottomNoteSlider.oninput = function() {
 	topNoteIndex = parseInt(document.getElementById("topNoteIndexSlider").value);
 	//console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
 	//console.log(typeof bottomNoteVal);
-	if (botNoteIndex > topNoteIndex) {
+	if (botNoteIndex >= topNoteIndex) {
 		//console.log("bottom to top reset triggered");
 		//console.log("Before reset notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
 		//console.log(bottomNoteVal > topNoteVal);
 		document.getElementById("topNoteIndexSlider").value = this.value;
+		topNoteIndex = this.value;
 	}
 
 	console.log("Final notevals. bottomNoteVal: " + this.value + ". topNoteVal: " + document.getElementById("topNoteIndexSlider").value);
@@ -240,9 +242,10 @@ topNoteSlider.oninput = function() {
 	botNoteIndex = parseInt(document.getElementById("bottomNoteIndexSlider").value);
 	topNoteIndex = parseInt(this.value);
 	//console.log("Intial notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
-	if (topNoteIndex < botNoteIndex) {
+	if (topNoteIndex <= botNoteIndex) {
 		//console.log("top to bottom reset triggered");
 		document.getElementById("bottomNoteIndexSlider").value = this.value;
+		botNoteIndex = this.value;
 	}
 	document.getElementById("perfectPitcherAnnouncer").innerHTML = notes[botNoteIndex][0] + " - " + notes[topNoteIndex][0];
 	//console.log("Final notevals. bottomNoteVal: " + bottomNoteVal + ". topNoteVal: " + topNoteVal);
